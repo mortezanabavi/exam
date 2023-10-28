@@ -1,36 +1,32 @@
-document.addEventListener('DOM', () => {
-    function addProductToast
-    function addProductFunc(btnName) {
-        btnName.forEach(function (el) {
-            el.addEventListener("click", function () {
-            let productId = el.getAttribute("data-productId");
+const escapeButton = document.getElementById("escape-button");
+let orginalHeight = escapeButton.clientHeight;
+let orginalWidth = escapeButton.clientWidth;
+let run = true;
 
-            fetch(URL + "basket/add/?count=1&product=" + parseInt(productId), {
-                headers: {
-                Authorization: "Token " + getCookie("token"),
-                },
-            }).then(function () {
-                const dataCounter = document.querySelectorAll(".data-counter");
-                const addProductToast = document.querySelector(".add-product-toast");
-
-                dataCounter.forEach(function (el) {
-                if (el.getAttribute("data-count") == "") {
-                    el.setAttribute("data-count", 0);
-                } else {
-                    counter = parseInt(el.getAttribute("data-count")) + 1;
-                }
-                });
-
-                dataCounter.forEach(function (el) {
-                el.setAttribute("data-count", counter);
-                });
-                addProductToast.classList.add("activeProduct");
-
-                setTimeout(function () {
-                addProductToast.classList.remove("activeProduct");
-                }, 3000);
-            });
-            });
-        });
-        }
-})
+escapeButton.addEventListener("mouseover", () => {
+  if(run) {
+    const pageX = window.innerWidth - 250 - escapeButton.clientWidth;
+    const pageY = window.innerHeight - 250 - escapeButton.clientHeight;
+    const randomPageX = Math.floor(Math.random() * pageX);
+    const randomPageY = Math.floor(Math.random() * pageY);
+    escapeButton.style.position = 'absolute';
+    escapeButton.style.zIndex = '2';
+    escapeButton.style.left = `${randomPageX}px`;
+    escapeButton.style.top = `${randomPageY}px`;
+    const Button = document.getElementById("escape-button");
+    let newHeight = Button.clientHeight - 2;
+    let newWidth = Button.clientWidth - 10;
+    Button.style.height = newHeight + "px";
+    Button.style.width = newWidth + "px";
+    if (newWidth < 1) {
+        Button.innerHTML = "";
+        alert('یک دکمه پرداخت معذرت');
+        escapeButton.style.position = 'static';
+        escapeButton.style.zIndex = '0';
+        Button.style.height = orginalHeight + "px";
+        Button.style.width = orginalWidth + "px";
+        Button.innerHTML = 'پرداخت';
+        run = false;
+    }
+  }
+});

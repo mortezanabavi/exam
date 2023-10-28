@@ -24,7 +24,6 @@ body {
     align-self: center;
     justify-content: center;
     align-items: center;
-    text-align: center;
     height: 300px;
     width: 800px;
     background: linear-gradient(40deg, #ff4d4d, #0dcaf0);
@@ -36,15 +35,17 @@ body {
 }
 
 h3 {
+	font-family: dana;
     color:black;
-    font-size: 10px;
+    font-size: 15px;
 }
 .grid-items {
-    display: flex;
+    display: grid;
+	grid-template-columns: repeat(3, 1fr);
     align-items: center;
     justify-content: flex-start;
-    width: 100%;
-    gap: 10px;
+    width: 92%;
+    gap: 30px;
     flex-wrap: wrap;
 }
 ul {
@@ -53,14 +54,21 @@ ul {
 }
 ul li {
     padding: 10px;
-    width: 20%;
+    width: 100%;
     background-color: white ;
     border-top-left-radius: 10px;
     border-bottom-right-radius: 10px;
 }
+.product {
+	position: relative;
+	height: 500px;
+	width: 100%;
+	overflow-y: auto;
+	overflow-x: hidden;
+	padding-top: 15px;
+}
 .grid-items img {
     height: 80px;
-    weight: 10px;
     border-radius: 10px;
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
@@ -69,48 +77,83 @@ ul li {
 }
 a {
     display: flex;
+	justify-content: space-between;
     text-decoration: none;
     color: black;
 }
-h4 {
-    margin-top: 15px;
-    font-size: 13px;
+.detail {
+	display: block;
+    margin-left: 10px;
+	text-align: start;
+	justify-content: start;
+	align-items: start;
+	margin-top: 15px;
+	direction: rtl;
+	padding: 10px;
 }
-a button {
+h4 {
+	font-family: dana;
+    margin-top: 15px;
+    font-size: 10px;
+}
+a form {
     position: absolute;
+    margin-top: 20px;
+    margin-left: 90px;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
     background-color: #0096FF;
-    top: 45%;
-    margin-left: 60px;
     border-top-left-radius: 10px;
     border-bottom-right-radius: 10px;
 }
-
-a button:hover {
-    height: 90px;
-    width: 150px;
-    top: 30%;
+a form button {
+    background-color: #0096FF;
+    border-top-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+a form:hover {
+    height: 80px;
+    width: 218px;
     margin-right: 10px;
     margin-left: 0;
-    margin-top: 15px;
+    margin-top: 0;
+    margin-bottom: 7px;
+}
+a form button:hover {
+    height: 100%;
+    width: 100%;
+    margin-right: 10px;
+    margin-left: 0;
 }
 
 .basket {
     position: absolute;
     top: 5%;
     left: 5%;
+	width: 1.6rem;
+	height: 1.6rem;
     border:none;
     background-color: none;
 }
 .basket::after {
-    content: "2";
-    color: red;
-    font-size: 10px;
-    background-color: white;
-    border-radius: 10px;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    -ms-border-radius: 10px;
-    -o-border-radius: 10px;
+    content: attr(data-count);
+    position: absolute;
+	top: 1.2rem;
+	right: -1.2rem;
+	width: 1.5rem;
+	height: 1.5rem;
+	border-radius: 30%;
+	-webkit-border-radius: 30%;
+	-moz-border-radius: 30%;
+	-ms-border-radius: 30%;
+	-o-border-radius: 30%;
+	background-color: white;
+	color: black;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 9px;
 }
 .addbasket {
     display: none;
