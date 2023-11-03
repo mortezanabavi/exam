@@ -40,7 +40,7 @@ class Order(models.Model):
         my_basket.save()
         return my_basket
     
-
+    #Add Update_price for calcuting Full Price
     def update_price(self):
         order_items = self.orderitem_set.all()
         fprice = 0

@@ -19,6 +19,8 @@ class HomeView(View):
             token, _ = Token.objects.get_or_create(user=request.user)
             response.set_cookie(key="token", value=token)
         return response
+    
+    #Clean Code
 
     def post(self, request):
         type = request.POST.get("type")
@@ -68,7 +70,8 @@ class HomeView(View):
                     return render(request, "main.html", {"products": Product.objects.all(), "count": len(basket.orderitem_set.all())})
                 else:
                     return render(request, "cart.html", {"basket": basket, "items": order_items, "count": len(basket.orderitem_set.all()), "price": "{:,}".format(basket.full_price)})
-        
+                #Clean Code
+
 class CartView(View):
     def get(self, request):
         if request.user.is_authenticated:
@@ -121,3 +124,4 @@ class CartView(View):
                     return render(request, "main.html", {"products": Product.objects.all(), "count": len(basket.orderitem_set.all())})
                 else:
                     return render(request, "cart.html", {"basket": basket, "items": order_items, "count": len(basket.orderitem_set.all()), "price": "{:,}".format(basket.full_price)})
+                #Clean Code

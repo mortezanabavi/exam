@@ -1,7 +1,7 @@
 from django.contrib import admin
 from shoes.models import Order, Product
 from rest_framework.authtoken.models import TokenProxy
-admin.site.unregister(TokenProxy) 
+admin.site.unregister(TokenProxy) # Hidden token section
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
@@ -23,3 +23,4 @@ class OrderAdmin(admin.ModelAdmin):
         return "{:,} تومان".format(obj.full_price)
 
     get_pr.short_description = "جمع کل سفارش"
+    #Add user and status and full price order
