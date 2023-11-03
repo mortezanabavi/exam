@@ -1,5 +1,5 @@
 from django.db import models
-from accounts.models import Users
+from accounts.models import Users 
 
 class Product(models.Model):
     name = models.CharField(max_length=99, verbose_name="نام محصول")

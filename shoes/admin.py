@@ -1,7 +1,7 @@
 from django.contrib import admin
 from shoes.models import Order, Product
 from rest_framework.authtoken.models import TokenProxy
-admin.site.unregister(TokenProxy)
+admin.site.unregister(TokenProxy) 
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):

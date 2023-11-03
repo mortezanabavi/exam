@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.views import View
 from django.contrib.auth import authenticate, login
 from accounts.models import Users
-from shoes.models import Order, Product, OrderItem
+from shoes.models import Order, Product, OrderItem 
 from rest_framework.authtoken.models import Token
 
 
