@@ -1,6 +1,5 @@
 from django.db import models
 from accounts.models import Users
-from PIL import Image
 
 class Product(models.Model):
     name = models.CharField(max_length=99, verbose_name="نام محصول")
@@ -22,6 +21,8 @@ class Order(models.Model):
         Users, on_delete=models.CASCADE, verbose_name="کاربر")
     status = models.CharField(
         max_length=1, choices=STATUS_CHOICES, verbose_name="وضعیت")
+    full_price = models.PositiveBigIntegerField(
+        verbose_name="قیمت کل سفارش", default=0)
         
     @classmethod
     def get_basket(cls, user):
@@ -38,7 +39,19 @@ class Order(models.Model):
         )
         my_basket.save()
         return my_basket
+    
 
+    def update_price(self):
+        order_items = self.orderitem_set.all()
+        fprice = 0
+        for i in order_items:
+            fprice += i.product.price * i.product_count
+        self.full_price = fprice
+        self.save()
+
+    def __str__(self):
+        return str(self.user)
+    
     class Meta:
         verbose_name = "سفارش"
         verbose_name_plural = "سفارشات"
@@ -60,11 +73,13 @@ class OrderItem(models.Model):
             my_order_item.product_price = my_order_item.product.price
             my_order_item.product_count = my_order_item.product_count + 1
             my_order_item.save()
+            my_order_item.order.update_price()
             return True
         else:
             instance = cls(order=order, product_price=prod.price,
                            product=prod, product_count=count)
             instance.save()
+            instance.order.update_price()
             return True
 
     @classmethod
@@ -75,11 +90,12 @@ class OrderItem(models.Model):
             if my_order_item.product_count - count <= 0:
                 target_order = my_order_item.order
                 my_order_item.delete()
+                target_order.update_price()
                 return True
             else:
-
                 my_order_item.product_count -= count
                 my_order_item.save()
+                my_order_item.order.update_price()
                 return True
         else:
             return False
