@@ -26,9 +26,8 @@ class HomeView(View):
         type = request.POST.get("type")
 
         if type == "reset":
-            basket = Order.get_basket(request.user)
-            order_items = basket.orderitem_set.all()
-            order_items.delete()
+            my_order = Order.objects.filter(user__id=request.user.id, status="1")
+            my_order.update(status="2")
             return render(request, "main.html", {"products": Product.objects.all(), "count": 0})
         
         elif type == "add":
